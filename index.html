@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Tajul Islam | Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body x-data="{ 
+        darkMode: localStorage.getItem('darkMode') === 'true',
+        init() {
+            this.$watch('darkMode', val => {
+                localStorage.setItem('darkMode', val);
+                if (val) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+            if (this.darkMode) document.documentElement.classList.add('dark');
+        }
+    }" 
+    class="antialiased bg-slate-50 text-slate-800 transition-colors duration-200 dark:bg-slate-900 dark:text-slate-200 font-sans selection:bg-indigo-500 selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors duration-200" x-data="{ mobileMenuOpen: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Branding -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Tajul.</a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#about" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 font-medium transition-colors duration-200">About</a>
+                    <a href="#skills" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 font-medium transition-colors duration-200">Skills</a>
+                    <a href="#projects" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 font-medium transition-colors duration-200">Projects</a>
+                    <a href="#experience" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 font-medium transition-colors duration-200">Experience</a>
+                    <a href="#education" class="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 font-medium transition-colors duration-200">Education</a>
+                    
+                    <div class="h-6 w-px bg-slate-300 dark:bg-slate-700"></div>
+
+                    <!-- External Links -->
+                    <a href="https://github.com/tajul06" target="_blank" class="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-block" aria-label="GitHub"><i class="fa-brands fa-github text-xl"></i></a>
+                    <a href="https://linkedin.com/in/tajul06/" target="_blank" class="text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-block" aria-label="LinkedIn"><i class="fa-brands fa-linkedin text-xl"></i></a>
+
+                    <!-- Dark Mode Toggle -->
+                    <button @click="darkMode = !darkMode" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:ring-2 focus:ring-indigo-500 focus:outline-none ml-2" aria-label="Toggle Dark Mode">
+                        <i class="fa-solid fa-moon text-slate-800" x-show="!darkMode"></i>
+                        <i class="fa-solid fa-sun text-yellow-400" x-cloak x-show="darkMode"></i>
+                    </button>
+                    
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-4">
+                    <button @click="darkMode = !darkMode" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none">
+                        <i class="fa-solid fa-moon text-slate-800" x-show="!darkMode"></i>
+                        <i class="fa-solid fa-sun text-yellow-400" x-cloak x-show="darkMode"></i>
+                    </button>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" x-show="!mobileMenuOpen"></i>
+                        <i class="fa-solid fa-xmark text-2xl" x-cloak x-show="mobileMenuOpen"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-cloak x-show="mobileMenuOpen" x-collapse backgroundColor class="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-xl absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a @click="mobileMenuOpen = false" href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400">About</a>
+                <a @click="mobileMenuOpen = false" href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400">Skills</a>
+                <a @click="mobileMenuOpen = false" href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400">Projects</a>
+                <a @click="mobileMenuOpen = false" href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400">Experience</a>
+                <a @click="mobileMenuOpen = false" href="#education" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400">Education</a>
+                <div class="h-px w-full bg-slate-200 dark:bg-slate-700 my-2"></div>
+                <div class="flex space-x-6 px-3 py-2">
+                    <a href="https://github.com/tajul06" target="_blank" class="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400"><i class="fa-brands fa-github text-2xl"></i></a>
+                    <a href="https://linkedin.com/in/tajul06/" target="_blank" class="text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400"><i class="fa-brands fa-linkedin text-2xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        
+        <!-- Hero Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col-reverse md:flex-row items-center justify-between gap-12 md:gap-16">
+            <div class="flex-1 text-center md:text-left mt-8 md:mt-0">
+                <p class="text-indigo-600 dark:text-indigo-400 font-semibold tracking-wide uppercase mb-3 text-sm">Hello World, I'm</p>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+                    Md Tajul Islam
+                </h1>
+                <h2 class="text-2xl sm:text-3xl font-semibold text-slate-600 dark:text-slate-300 mb-6">
+                    Computer Science & Engineering Student
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 text-lg mb-8 max-w-2xl mx-auto md:mx-0 leading-relaxed">
+                    Building robust, local-first AI tools, responsive web applications, and data-driven prototypes. Focused on practical machine learning and scalable web systems.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#projects" class="px-8 py-3.5 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+                        View Projects <i class="fa-solid fa-arrow-right text-sm"></i>
+                    </a>
+                    <a href="mailto:md.tajul2000@gmail.com" class="px-8 py-3.5 rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-envelope"></i> Contact Me
+                    </a>
+                </div>
+                <div class="mt-10 flex flex-wrap justify-center md:justify-start gap-6 text-sm font-medium text-slate-500 dark:text-slate-400">
+                    <span class="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm border border-slate-100 dark:border-slate-700"><i class="fa-solid fa-location-dot text-indigo-500"></i> Dhaka, Bangladesh</span>
+                    <span class="flex items-center gap-2 bg-white dark:bg-slate-800 px-4 py-2 rounded-full shadow-sm border border-slate-100 dark:border-slate-700"><i class="fa-solid fa-phone text-indigo-500"></i> +880 1535 209226</span>
+                </div>
+            </div>
+            
+            <div class="flex-shrink-0 flex justify-center md:justify-end w-full md:w-2/5">
+                <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[22rem] md:h-[22rem]">
+                    <!-- Decorative background ring -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-600 to-indigo-300 rounded-full blur-2xl opacity-20 dark:opacity-40 animate-pulse"></div>
+                    <!-- Profile Picture -->
+                    <img src="Tajul Image.png" alt="MD TAJUL ISLAM" class="relative inset-0 w-full h-full object-cover rounded-full border-[6px] border-white dark:border-slate-900 shadow-2xl z-10 bg-slate-200">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-indigo-50/50 dark:bg-slate-800/20 border-y border-slate-200 dark:border-slate-800 py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-6">About Me</h2>
+                <div class="w-16 h-1 bg-indigo-600 rounded-full mx-auto mb-8"></div>
+                <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
+                    Undergraduate CSE student focused on practical machine learning and web systems. I build local-first AI tools, Flask applications, and data-driven prototypes with hands-on experience in model training, inspection workflows, and privacy-preserving RAG systems.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Technical Skills</h2>
+                <div class="w-16 h-1 bg-indigo-600 rounded-full mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Category 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-code text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white">Programming</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Python</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">JavaScript</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">HTML/CSS</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">LaTeX</span>
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-brain text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white">ML / AI</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">PyTorch</span>
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">YOLO / Object Detection</span>
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">anomalib</span>
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">timm</span>
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">EasyFSL</span>
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">FAISS</span>
+                        <span class="px-4 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800/50 rounded-lg text-sm font-medium">sentence-transformers</span>
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-layer-group text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white">Web / Data</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Flask</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">SQLAlchemy / SQLite</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Tailwind CSS</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Alpine.js</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">PyMuPDF</span>
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all duration-300">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-regular fa-image text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white">Image Processing</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">OpenCV</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">CLAHE</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Heatmap Visualization</span>
+                    </div>
+                </div>
+
+                <!-- Category 5 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all duration-300 md:col-span-2 lg:col-span-2 border-t lg:border-t-0">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-wrench text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white">Tools & Environments</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Git / GitHub</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">Kaggle Notebooks</span>
+                        <span class="px-4 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-medium">PyInstaller</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 bg-slate-100 dark:bg-slate-800/30">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">Featured Projects</h2>
+                    <div class="w-16 h-1 bg-indigo-600 rounded-full mx-auto mb-6"></div>
+                    <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">A selection of my robust academic technical projects demonstrating expertise in deep learning, computer vision, frameworks, and architecture.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Project 1 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+                        <div class="p-8 flex-1 flex flex-col relative h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">Fabric Inspection Prototype</h3>
+                                    <p class="text-indigo-600 dark:text-indigo-400 font-medium text-sm">Team Leader & Technical Lead (CSE499) • 2026</p>
+                                </div>
+                                <a href="https://github.com/tajul06/fabric-inspection-prototype" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="View on GitHub">
+                                    <i class="fa-brands fa-github text-3xl"></i>
+                                </a>
+                            </div>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300 list-disc pl-5 mb-8 flex-1">
+                                <li>Built an adaptive few-shot learning framework for fabric defect detection and inspection using Flask.</li>
+                                <li>Integrated ResNet-50, EfficientNet, PatchCore, WinCLIP, and prototype-based defect refinement.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+                        <div class="p-8 flex-1 flex flex-col relative h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">VisDrone Human & Car Detection</h3>
+                                    <p class="text-indigo-600 dark:text-indigo-400 font-medium text-sm">Sole Developer • 2026</p>
+                                </div>
+                                <a href="https://github.com/tajul06/Visdrone-Human-and-Car-Detection-Pipeline" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="View on GitHub">
+                                    <i class="fa-brands fa-github text-3xl"></i>
+                                </a>
+                            </div>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300 list-disc pl-5 mb-8 flex-1">
+                                <li>Engineered a YOLO-based computer vision pipeline for real-time human and car detection from drone imagery.</li>
+                                <li>Developed a local Flask web application for inference visualization, tracking, and evaluation benchmarking.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+                        <div class="p-8 flex-1 flex flex-col relative h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">EduChat</h3>
+                                    <p class="text-indigo-600 dark:text-indigo-400 font-medium text-sm">Sole Developer (CSE299) • 2024</p>
+                                </div>
+                                <a href="https://github.com/tajul06/Edu_Chat" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="View on GitHub">
+                                    <i class="fa-brands fa-github text-3xl"></i>
+                                </a>
+                            </div>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300 list-disc pl-5 mb-8 flex-1">
+                                <li>Built an offline RAG system for PDF-based educational QA.</li>
+                                <li>Implemented ingestion, semantic chunking, vector storage, and chat memory.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+                        <div class="p-8 flex-1 flex flex-col relative h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-1">Texas Hold'em Poker Simulator</h3>
+                                    <p class="text-indigo-600 dark:text-indigo-400 font-medium text-sm">Game Logic Developer (CSE440) • 2025</p>
+                                </div>
+                                <a href="https://github.com/tajul06/Poker-game-simulator-" target="_blank" class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="View on GitHub">
+                                    <i class="fa-brands fa-github text-3xl"></i>
+                                </a>
+                            </div>
+                            <ul class="space-y-3 text-slate-600 dark:text-slate-300 list-disc pl-5 mb-8 flex-1">
+                                <li>Implemented core game logic, hand evaluation, and pot management.</li>
+                                <li>Integrated AI decision engine using expectiminimax with Monte Carlo sampling.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education -->
+        <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+                
+                <!-- Education -->
+                <div id="education">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-10 flex items-center gap-3">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                        </div>
+                        Education
+                    </h2>
+                    
+                    <div class="relative border-l-2 border-slate-200 dark:border-slate-700 ml-6 space-y-12">
+                        <!-- Item 1 -->
+                        <div class="pl-8 relative">
+                            <div class="absolute w-5 h-5 bg-indigo-600 rounded-full -left-[11px] top-1.5 outline outline-4 outline-slate-50 dark:outline-slate-900 shadow"></div>
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                <span class="inline-block px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-bold tracking-wide mb-3">2020 — CURRENT</span>
+                                <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-1">B.Sc. in Computer Science and Engineering</h3>
+                                <h4 class="font-medium text-slate-600 dark:text-slate-400 text-lg mb-3">North South University</h4>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm">Relevant focus: algorithms, deep learning, and systems design.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="pl-8 relative">
+                            <div class="absolute w-4 h-4 bg-slate-300 dark:bg-slate-600 rounded-full -left-[9px] top-2 outline outline-4 outline-slate-50 dark:outline-slate-900"></div>
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                <span class="inline-block px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full text-xs font-bold tracking-wide mb-3">2017 — 2019</span>
+                                <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-1">Higher Secondary Certificate (Science)</h3>
+                                <h4 class="font-medium text-slate-600 dark:text-slate-400 text-lg">Bangladesh Navy College</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div id="experience">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-10 flex items-center gap-3">
+                        <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl">
+                            <i class="fa-solid fa-briefcase text-2xl"></i>
+                        </div>
+                        Experience
+                    </h2>
+                    
+                    <div class="relative border-l-2 border-slate-200 dark:border-slate-700 ml-6 space-y-12">
+                        <!-- Item 1 -->
+                        <div class="pl-8 relative">
+                            <div class="absolute w-5 h-5 bg-indigo-600 rounded-full -left-[11px] top-1.5 outline outline-4 outline-slate-50 dark:outline-slate-900 shadow"></div>
+                            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                                <span class="inline-block px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-bold tracking-wide mb-3">JUL 2023 — OCT 2023</span>
+                                <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-1">Customer Support Specialist</h3>
+                                <h4 class="font-medium text-slate-600 dark:text-slate-400 text-lg mb-4">Woofers, Remote/Online</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                                    <li>Responded to customer inquiries via Facebook Messenger and resolved order issues.</li>
+                                    <li>Processed order requests and coordinated with operations for fulfillment.</li>
+                                    <li>Maintained clear written and spoken communication in customer interactions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12 transition-colors duration-200 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-500 dark:text-slate-400 text-center md:text-left">
+                <div class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Tajul.</div>
+                <p class="text-sm">&copy; <span x-text="new Date().getFullYear()">2026</span> Md Tajul Islam. Built with HTML, Tailwind & Alpine.js.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="https://github.com/tajul06" target="_blank" class="text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    <span class="sr-only">GitHub</span>
+                    <i class="fa-brands fa-github text-2xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/tajul06/" target="_blank" class="text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    <span class="sr-only">LinkedIn</span>
+                    <i class="fa-brands fa-linkedin text-2xl"></i>
+                </a>
+                <a href="mailto:md.tajul2000@gmail.com" class="text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    <span class="sr-only">Email</span>
+                    <i class="fa-solid fa-envelope text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
